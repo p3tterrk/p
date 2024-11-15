@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>🎉 Convite de Aniversário - Heloísa 🦋</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #fce4ec;
+      overflow: hidden;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+    }
+
+    .background {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      z-index: -1;
+    }
+
+    .butterfly {
+      position: absolute;
+      width: 70px;
+      height: 70px;
+      background-color: transparent;
+      background-image: url('https://www.example.com/butterfly.png'); /* Substitua com a URL da sua imagem de borboleta */
+      background-size: cover;
+      animation: fly 12s infinite linear;
+    }
+
+    @keyframes fly {
+      0% { top: -100px; left: 50%; transform: rotate(0); }
+      100% { top: 100vh; left: 100%; transform: rotate(360deg); }
+    }
+
+    .container {
+      text-align: center;
+      padding: 50px;
+      z-index: 2;
+    }
+
+    h1 {
+      font-size: 4em;
+      color: #e91e63;
+      font-weight: bold;
+    }
+
+    p {
+      font-size: 1.8em;
+      color: #ff4081;
+      margin: 30px 0;
+    }
+
+    .button {
+      background-color: #ff4081;
+      color: white;
+      padding: 20px 40px;
+      font-size: 1.8em;
+      border: none;
+      cursor: pointer;
+      border-radius: 5px;
+      transition: background-color 0.3s;
+    }
+
+    .button:hover {
+      background-color: #f50057;
+    }
+
+    .form-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.7);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 10;
+    }
+
+    .form-container {
+      background-color: white;
+      padding: 40px;
+      border-radius: 10px;
+      width: 400px;
+      text-align: center;
+    }
+
+    .close-button {
+      background-color: transparent;
+      border: none;
+      font-size: 2.5em;
+      color: #ff4081;
+      cursor: pointer;
+      position: absolute;
+      top: 10px;
+      right: 10px;
+    }
+
+    input, textarea {
+      width: 100%;
+      padding: 15px;
+      margin: 15px 0;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+      font-size: 1.4em;
+    }
+
+    button[type="submit"] {
+      background-color: #ff4081;
+      color: white;
+      padding: 15px 25px;
+      font-size: 1.4em;
+      border: none;
+      border-radius: 5px;
+      width: 100%;
+    }
+
+    .participants-list {
+      margin-top: 30px;
+      padding: 10px;
+      background-color: #fff;
+      border-radius: 5px;
+      box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
+      width: 80%;
+      margin: 30px auto;
+    }
+
+    .participants-list h2 {
+      color: #ff4081;
+      font-size: 2em;
+    }
+
+    .participant {
+      font-size: 1.6em;
+      color: #e91e63;
+      margin-bottom: 10px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="background">
+    <div class="butterfly" style="animation-delay: 0s;"></div>
+    <div class="butterfly" style="animation-delay: 2s;"></div>
+    <div class="butterfly" style="animation-delay: 4s;"></div>
+    <div class="butterfly" style="animation-delay: 6s;"></div>
+  </div>
+
+  <div class="container">
+    <h1>🎉 Feliz Aniversário, Heloísa! 🦋</h1>
+    <p>É com muito carinho que convidamos você para celebrar o aniversário da nossa querida Heloísa! 🎂</p>
+
+    <div class="event-details">
+      <p><strong>📅 Data:</strong> 17 de Novembro de 2024</p>
+      <p><strong>⏰ Horário:</strong> 19:00h</p>
+      <p><strong>📍 Local:</strong> Rua das Flores, 123 - Curitiba, PR</p>
+      <p><strong>🎈 Tema:</strong> Rosa dos Sonhos! 🌸</p>
+      <p>Venha celebrar esse momento único com muita diversão e amor. Não perca!</p>
+    </div>
+
+    <button class="button" onclick="showForm()">✅ Confirmar Presença</button>
+  </div>
+
+  <!-- Formulário para confirmar presença -->
+  <div class="form-overlay" id="formOverlay">
+    <div class="form-container">
+      <button class="close-button" onclick="hideForm()">❌</button>
+      <h2>🎉 Confirme sua Presença 🎉</h2>
+      <form id="confirmationForm">
+        <input type="text" id="name" name="name" placeholder="Seu nome" required>
+        <input type="tel" id="phone" name="phone" placeholder="Seu telefone" required>
+        <textarea id="message" name="message" rows="4" placeholder="Deixe uma mensagem especial (opcional)"></textarea>
+        <button type="submit">Enviar</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Lista de participantes -->
+  <div class="participants-list">
+    <h2>👥 Participantes Confirmados</h2>
+    <div id="participantList">
+      <!-- A lista será preenchida aqui pelo JavaScript -->
+    </div>
+  </div>
+
+  <script>
+    // Mostrar o formulário quando o botão for clicado
+    function showForm() {
+      document.getElementById('formOverlay').style.display = 'flex';
+    }
+
+    // Fechar o formulário
+    function hideForm() {
+      document.getElementById('formOverlay').style.display = 'none';
+    }
+
+    // Adicionar participante à lista
+    document.getElementById("confirmationForm").addEventListener("submit", function(event) {
+      event.preventDefault();
+      const name = document.getElementById('name').value;
+
+      // Adiciona o participante à lista
+      addParticipantToList(name);
+
+      // Limpar o formulário
+      document.getElementById("confirmationForm").reset();
+
+      alert("Presença confirmada com sucesso!");
+      hideForm();
+    });
+
+    // Função para adicionar participante à lista
+    function addParticipantToList(name) {
+      const participantList = document.getElementById('participantList');
+      const participant = document.createElement('div');
+      participant.classList.add('participant');
+      participant.textContent = name;
+      participantList.appendChild(participant);
+    }
+  </script>
+
+</body>
+</html>
